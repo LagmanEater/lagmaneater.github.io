@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aidar Zhumabaev — Environmental Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #ffffff;
+      --text: #1a1a18;
+      --muted: #6b6b65;
+      --accent: #1d6b4e;
+      --accent-light: #e1f5ee;
+      --border: rgba(0,0,0,0.09);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+    .lang-bar { position: sticky; top: 0; z-index: 100; background: var(--surface); border-bottom: 0.5px solid var(--border); display: flex; justify-content: flex-end; padding: 10px 2rem; gap: 6px; }
+    .lang-btn { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s; }
+    .lang-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .hero { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 2rem; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 2rem; }
+    .hero-text .eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 0.75rem; }
+    .hero-text .tagline { font-size: 1.05rem; color: var(--muted); max-width: 500px; }
+    .hero-photo { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-light); flex-shrink: 0; }
+    .hero-photo-placeholder { width: 130px; height: 130px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: var(--accent); flex-shrink: 0; border: 3px solid var(--accent-light); }
+    .hero-links { display: flex; gap: 10px; margin-top: 1.25rem; flex-wrap: wrap; }
+    .hero-links a { font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 0.5px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+    .hero-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+    main { max-width: 860px; margin: 0 auto; padding: 1rem 2rem 4rem; }
+    .divider { border: none; border-top: 0.5px solid var(--border); margin: 2.5rem 0; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+
+    .bio-text { font-size: 1.05rem; color: var(--text); max-width: 640px; line-height: 1.8; }
+
+    .exp-list { display: flex; flex-direction: column; gap: 1.75rem; }
+    .exp-item { display: grid; grid-template-columns: 120px 1fr; gap: 1rem; }
+    .exp-date { font-size: 13px; color: var(--muted); padding-top: 2px; }
+    .exp-role { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+    .exp-org { font-size: 14px; color: var(--accent); margin-bottom: 4px; }
+    .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .skill-group h4 { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag { font-size: 13px; padding: 4px 10px; background: var(--accent-light); color: var(--accent); border-radius: 20px; font-weight: 500; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .project-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: border-color 0.15s; }
+    .project-card:hover { border-color: var(--accent); }
+    .project-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; color: var(--text); }
+    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .project-tag { font-size: 12px; padding: 2px 8px; background: var(--bg); color: var(--muted); border-radius: 20px; border: 0.5px solid var(--border); }
+    .project-link { font-size: 12px; color: var(--accent); text-decoration: none; margin-top: 8px; display: inline-block; }
+    .project-link:hover { text-decoration: underline; }
+
+    .pubs-list { display: flex; flex-direction: column; gap: 1rem; }
+    .pub-item { font-size: 14px; color: var(--text); line-height: 1.6; padding-left: 1rem; border-left: 2px solid var(--accent-light); }
+    .pub-item a { color: var(--accent); text-decoration: none; font-size: 13px; }
+    .pub-item a:hover { text-decoration: underline; }
+    .pub-authors { color: var(--muted); font-size: 13px; }
+
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+    .contact-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); text-decoration: none; padding: 10px 14px; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); transition: border-color 0.15s; }
+    .contact-item:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-icon { font-size: 18px; color: var(--accent); }
+
+    footer { text-align: center; padding: 2rem; font-size: 13px; color: var(--muted); border-top: 0.5px solid var(--border); }
+
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; padding: 2rem 1.25rem 1rem; }
+      .hero-photo-placeholder { width: 90px; height: 90px; font-size: 1.8rem; }
+      main { padding: 1rem 1.25rem 3rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+
+    [data-lang] { display: none; }
+    body.lang-en [data-lang="en"] { display: block; }
+    body.lang-ru [data-lang="ru"] { display: block; }
+    body.lang-ky [data-lang="ky"] { display: block; }
+    .t-en, .t-ru, .t-ky { display: none; }
+    body.lang-en .t-en { display: inline; }
+    body.lang-ru .t-ru { display: inline; }
+    body.lang-ky .t-ky { display: inline; }
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="lang-bar" aria-label="Language selector">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('ru')">RU</button>
+  <button class="lang-btn" onclick="setLang('ky')">КЫР</button>
+</nav>
+
+<header class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">
+      <span class="t-en">Environmental Engineer &amp; Hydrologist</span>
+      <span class="t-ru">Инженер-эколог и гидролог</span>
+      <span class="t-ky">Экологиялык инженер жана гидролог</span>
+    </p>
+    <h1>Aidar<br>Zhumabaev</h1>
+    <p class="tagline">
+      <span class="t-en">Water resources specialist combining hydrological modeling, GIS, and data science to address climate and water challenges across Central Asia.</span>
+      <span class="t-ru">Специалист по водным ресурсам, сочетающий гидрологическое моделирование, ГИС и науку о данных для решения климатических и водных проблем Центральной Азии.</span>
+      <span class="t-ky">Гидрологиялык моделдөөнү, ГИСти жана маалымат илимин Борбордук Азиянын климат жана суу маселелерин чечүү үчүн айкалыштырган суу ресурстары боюнча адис.</span>
+    </p>
+    <div class="hero-links">
+      <a href="mailto:zhumabaev.aidar1999@gmail.com">✉ zhumabaev.aidar1999@gmail.com</a>
+      <a href="tel:+996554221271">📞 +996 554 221 271</a>
+      <!-- TODO: add LinkedIn, GitHub, ORCID links when ready -->
+    </div>
+  </div>
+  <!-- TODO: replace with <img class="hero-photo" src="photo.jpg" alt="Aidar Zhumabaev"> -->
+  <div class="hero-photo-placeholder" aria-hidden="true">AZ</div>
+</header>
+
+<main>
+
+  <!-- BIO -->
+  <hr class="divider" />
+  <section aria-label="About">
+    <p class="section-label">
+      <span class="t-en">About</span>
+      <span class="t-ru">Обо мне</span>
+      <span class="t-ky">Мен жөнүндө</span>
+    </p>
+    <p class="bio-text" data-lang="en">
+      I am a dedicated Environmental Engineer with experience in private research consulting, currently working across Hydrosolutions GmbH and the International Office for Water. I specialize in hydrological modeling of Central Asian rivers, geospatial analysis, and translating complex water challenges into actionable management plans. I hold a BA in Applied Geology (GPA 3.93) from the American University of Central Asia and work fluently across R, Python, QGIS, and Google Earth Engine.
+    </p>
+    <p class="bio-text" data-lang="ru">
+      Я целеустремлённый инженер-эколог с опытом в частном исследовательском консалтинге, работающий в Hydrosolutions GmbH и Международном офисе по воде (OiEau). Специализируюсь на гидрологическом моделировании рек Центральной Азии, геопространственном анализе и преобразовании сложных водных проблем в конкретные планы управления. Имею диплом бакалавра по прикладной геологии (средний балл 3,93) Американского университета Центральной Азии и свободно работаю в R, Python, QGIS и Google Earth Engine.
+    </p>
+    <p class="bio-text" data-lang="ky">
+      Мен жеке изилдөө консалтингинде тажрыйбасы бар жана учурда Hydrosolutions GmbH жана Эл аралык Суу Бюросунда (OiEau) иштеген инженер-экологмин. Борбордук Азия дарыяларын гидрологиялык моделдөө, геомейкиндиктик талдоо жана татаал суу маселесин конкреттүү башкаруу пландарына айландыруу боюнча адисмин. Борбордук Азия Американ Университетинде Колдонмо Геология боюнча бакалавр дипломум бар (орточо балл 3,93) жана R, Python, QGIS жана Google Earth Engine программаларында эркин иштеймин.
+    </p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <hr class="divider" />
+  <section aria-label="Experience">
+    <p class="section-label">
+      <span class="t-en">Experience</span>
+      <span class="t-ru">Опыт работы</span>
+      <span class="t-ky">Иш тажрыйбасы</span>
+    </p>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <span class="exp-date">05/2026 — <span class="t-en">Present</span><span class="t-ru">н.в.</span><span class="t-ky">азыр</span></span>
+        <div>
+          <p class="exp-role">
+            <span class="t-en">Technical Coordinator</span>
+            <span class="t-ru">Технический координатор</span>
+            <span class="t-ky">Техникалык координатор</span>
+          </p>
+          <p class="exp-org">International Office for Water (OiEau) — Paris, France</p>
+          <p class="exp-desc">
+            <span class="t-en">Technical coordinator for the Chu River Basin Plan, consolidating hydrological and water management inputs from international consultants. Production of a basin plan aligned with the Kyrgyz Republic's New Water Code.</span>
+            <span class="t-ru">Технический координатор Плана бассейна реки Чу, консолидирующий гидрологические и водохозяйственные материалы международных консультантов. Разработка плана бассейна в соответствии с новым Водным кодексом Кыргызской Республики.</span>
+            <span class="t-ky">Чүй дарыясы бассейнинин планы үчүн техникалык координатор, эл аралык консультанттардан гидрологиялык жана суу башкаруу маалыматтарын бириктируу. Кыргыз Республикасынын Жаңы Суу Кодексине ылайык бассейн планын даярдоо.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <span class="exp-date">10/2021 — <span class="t-en">Present</span><span class="t-ru">н.в.</span><span class="t-ky">азыр</span></span>
+        <div>
+          <p class="exp-role">
+            <span class="t-en">Environmental Engineer</span>
+            <span class="t-ru">Инженер-эколог</span>
+            <span class="t-ky">Экологиялык инженер</span>
+          </p>
+          <p class="exp-org">Hydrosolutions GmbH — Zurich, Switzerland</p>
+          <p class="exp-desc">
+            <span class="t-en">Hydrological modeling of Central Asian rivers using open-source GIS and programming tools (R, Python). Map production, geospatial analysis, data acquisition and analysis, workflow automation, and research and teaching assistantship.</span>
+            <span class="t-ru">Гидрологическое моделирование рек Центральной Азии с использованием открытых ГИС и программных инструментов (R, Python). Создание карт, геопространственный анализ, сбор и анализ данных, автоматизация рабочих процессов, ассистирование в исследованиях и обучении.</span>
+            <span class="t-ky">Ачык булак ГИС жана программалоо куралдарын (R, Python) колдонуп Борбордук Азия дарыяларын гидрологиялык моделдөө. Карта даярдоо, геомейкиндиктик талдоо, маалымат чогултуу жана талдоо, иш процесстерин автоматташтыруу, изилдөө жана окутуу боюнча жардамчылык.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <span class="exp-date">05/2019 — 05/2021</span>
+        <div>
+          <p class="exp-role">
+            <span class="t-en">Research Assistant</span>
+            <span class="t-ru">Научный ассистент</span>
+            <span class="t-ky">Изилдөө жардамчысы</span>
+          </p>
+          <p class="exp-org">American University of Central Asia — Bishkek, Kyrgyz Republic</p>
+          <p class="exp-desc">
+            <span class="t-en">Hydrological modeling, data acquisition and analysis, geospatial analysis, and research assistantship across multiple projects including transboundary IWRM and land degradation studies.</span>
+            <span class="t-ru">Гидрологическое моделирование, сбор и анализ данных, геопространственный анализ и научное ассистирование в рамках нескольких проектов, включая трансграничное ИУВР и исследования деградации земель.</span>
+            <span class="t-ky">Бир нече долбоорлордо, анын ичинде трансчек ИЖСБ жана жер деградациясын изилдөөдө гидрологиялык моделдөө, маалымат чогултуу жана талдоо, геомейкиндиктик талдоо жана изилдөө жардамчылыгы.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <hr class="divider" />
+  <section aria-label="Skills">
+    <p class="section-label">
+      <span class="t-en">Skills</span>
+      <span class="t-ru">Навыки</span>
+      <span class="t-ky">Көндүмдөр</span>
+    </p>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4><span class="t-en">Hydrology &amp; Modeling</span><span class="t-ru">Гидрология</span><span class="t-ky">Гидрология</span></h4>
+        <div class="skill-tags">
+          <span class="skill-tag">GR4J / GR6J</span>
+          <span class="skill-tag">CemaNeige</span>
+          <span class="skill-tag">RSMINERVE</span>
+          <span class="skill-tag">MIKE HydroBasin</span>
+          <span class="skill-tag">Flood Risk</span>
+          <span class="skill-tag">Discharge Forecasting</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4><span class="t-en">Programming</span><span class="t-ru">Программирование</span><span class="t-ky">Программалоо</span></h4>
+        <div class="skill-tags">
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Machine Learning</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>GIS &amp; Remote Sensing</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">QGIS</span>
+          <span class="skill-tag">Google Earth Engine</span>
+          <span class="skill-tag">Remote Sensing</span>
+          <span class="skill-tag">Kriging</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4><span class="t-en">Other</span><span class="t-ru">Другое</span><span class="t-ky">Башка</span></h4>
+        <div class="skill-tags">
+          <span class="skill-tag">DaVinci Resolve</span>
+          <span class="skill-tag">OBS</span>
+          <span class="skill-tag">UI Dashboards</span>
+          <span class="skill-tag">Technical Writing</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4><span class="t-en">Languages</span><span class="t-ru">Языки</span><span class="t-ky">Тилдер</span></h4>
+        <div class="skill-tags">
+          <span class="skill-tag"><span class="t-en">Kyrgyz (native)</span><span class="t-ru">Кыргызский (родной)</span><span class="t-ky">Кыргызча (эне тил)</span></span>
+          <span class="skill-tag"><span class="t-en">Russian (native)</span><span class="t-ru">Русский (родной)</span><span class="t-ky">Орусча (эне тил)</span></span>
+          <span class="skill-tag"><span class="t-en">English (C1)</span><span class="t-ru">Английский (C1)</span><span class="t-ky">Англисче (C1)</span></span>
+          <span class="skill-tag"><span class="t-en">German (A1)</span><span class="t-ru">Немецкий (A1)</span><span class="t-ky">Немисче (A1)</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <hr class="divider" />
+  <section aria-label="Projects">
+    <p class="section-label">
+      <span class="t-en">Projects</span>
+      <span class="t-ru">Проекты</span>
+      <span class="t-ky">Долбоорлор</span>
+    </p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <p class="project-title">
+          <span class="t-en">Kyrgyz Water Permits</span>
+          <span class="t-ru">Кыргызские водные разрешения</span>
+          <span class="t-ky">Кыргыз Суу Уруксаттары</span>
+        </p>
+        <p class="project-desc">
+          <span class="t-en">Development of Quantitative Management Plans for the Ala-Archa and Alamedin river basins, including flood risk assessment and hydrological modeling. Technical coordination of all international consultants to produce the basin plan under the Kyrgyz Republic's new Water Code.</span>
+          <span class="t-ru">Разработка количественных планов управления для бассейнов рек Ала-Арча и Аламедин, включая оценку риска наводнений и гидрологическое моделирование. Техническая координация всех международных консультантов для разработки плана бассейна в соответствии с новым Водным кодексом КР.</span>
+          <span class="t-ky">Ала-Арча жана Аламедин дарыя бассейндери үчүн суу ташкын тобокелдигин баалоо жана гидрологиялык моделдөөнү камтыган Сандык Башкаруу Пландарын иштеп чыгуу. КРдын жаңы Суу Кодексине ылайык бассейн планын даярдоо үчүн бардык эл аралык консультанттарды техникалык координациялоо.</span>
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Hydrosolutions GmbH</span>
+          <span class="project-tag">OiEau</span>
+          <span class="project-tag">2025–present</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-title">SAPPHIRE Central Asia</p>
+        <p class="project-desc">
+          <span class="t-en">Modernization of operational hydrology workflows in Central Asian hydrometeorological organizations. Hydrological modeling, discharge forecasting via machine learning, workflow automation, and UI dashboard development.</span>
+          <span class="t-ru">Модернизация оперативных гидрологических рабочих процессов в гидрометеорологических организациях Центральной Азии. Гидрологическое моделирование, прогнозирование стока с помощью машинного обучения, автоматизация рабочих процессов и разработка UI-дашбордов.</span>
+          <span class="t-ky">Борбордук Азиянын гидрометеорологиялык уюмдарындагы оперативдик гидрологиялык иш процесстерин модернизациялоо. Гидрологиялык моделдөө, машина үйрөнүү аркылуу суу агымын болжолдоо, иш процесстерин автоматташтыруу жана UI башкаруу панелин иштеп чыгуу.</span>
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Hydrosolutions GmbH</span>
+          <span class="project-tag">2022–present</span>
+          <span class="project-tag">ML</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-title">Hydro4U — Hydropower for You</p>
+        <p class="project-desc">
+          <span class="t-en">Sustainable small-scale hydropower demonstration in Central Asia under EU Horizon 2020. Hydrological modeling, data analysis, programming, reporting, and teaching assistance at Kazakh-German University (DKU), Almaty.</span>
+          <span class="t-ru">Демонстрация устойчивой малой гидроэнергетики в Центральной Азии в рамках программы ЕС Horizon 2020. Гидрологическое моделирование, анализ данных, программирование, отчётность и учебная помощь в Казахско-немецком университете (ДКУ), Алматы.</span>
+          <span class="t-ky">ЕС Horizon 2020 алкагында Борбордук Азиядагы туруктуу кичи гидроэнергетиканы демонстрациялоо. Гидрологиялык моделдөө, маалыматтарды талдоо, программалоо, отчет берүү жана Казак-Немис Университетинде (ДКУ), Алматыда окутуу жардамчылыгы.</span>
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">EU Horizon 2020</span>
+          <span class="project-tag">2022–present</span>
+        </div>
+        <a class="project-link" href="https://www.hydro4u.eu" target="_blank">hydro4u.eu ↗</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-title">
+          <span class="t-en">Transboundary IWRM — Kabul &amp; Amu Darya</span>
+          <span class="t-ru">Трансграничное ИУВР — Кабул и Амударья</span>
+          <span class="t-ky">Трансчек ИЖСБ — Кабул жана Амудария</span>
+        </p>
+        <p class="project-desc">
+          <span class="t-en">Strategic Environmental Assessment of the Kabul and Amu Darya Rivers. Hydrological modeling, geospatial analysis, and data collection to support Afghanistan's sustainable water development planning.</span>
+          <span class="t-ru">Стратегическая экологическая оценка рек Кабул и Амударья. Гидрологическое моделирование, геопространственный анализ и сбор данных для поддержки планирования устойчивого водопользования в Афганистане.</span>
+          <span class="t-ky">Кабул жана Амудария дарыяларынын стратегиялык экологиялык баасы. Афганистандын туруктуу суу өнүктүрүү пландоосун колдоо үчүн гидрологиялык моделдөө, геомейкиндиктик талдоо жана маалымат чогултуу.</span>
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">AUCA</span>
+          <span class="project-tag">2020–2021</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-title">
+          <span class="t-en">Land Degradation Neutrality — Suusamyr Valley</span>
+          <span class="t-ru">Нейтральность деградации земель — Суусамырская долина</span>
+          <span class="t-ky">Жер деградациясы — Суусамыр өрөөнү</span>
+        </p>
+        <p class="project-desc">
+          <span class="t-en">Assessment of pasture degradation dynamics caused by the invasive Karagana shrub in Suusamyr Valley. Research assistantship, geospatial analysis, field data collection, and community interviews.</span>
+          <span class="t-ru">Оценка динамики деградации пастбищ, вызванной инвазивным кустарником Карагана, в Суусамырской долине. Научное ассистирование, геопространственный анализ, полевой сбор данных и интервью с местным населением.</span>
+          <span class="t-ky">Суусамыр өрөөнүндөгү карагана бутасынан пайда болгон жайыт деградациясынын динамикасын баалоо. Изилдөө жардамчылыгы, геомейкиндиктик талдоо, талаалык маалымат чогултуу жана жергиликтүү калк менен маектешүү.</span>
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">AUCA</span>
+          <span class="project-tag">2019–2020</span>
+          <span class="project-tag">GIS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <hr class="divider" />
+  <section aria-label="Publications">
+    <p class="section-label">
+      <span class="t-en">Publications</span>
+      <span class="t-ru">Публикации</span>
+      <span class="t-ky">Жарыяланган эмгектер</span>
+    </p>
+    <div class="pubs-list">
+      <div class="pub-item">
+        <span class="pub-authors">Raimbekova, Z., Mashtayeva, S., Zhumabaev, A., et al. (Submitted).</span>
+        Glacio-Hydrological Modelling of Streamflow Dynamics in the Tentek River. <em>Hydrological Processes</em>.
+      </div>
+      <div class="pub-item">
+        <span class="pub-authors">Zhumabaev, A., Marti, B.S., Ragettli, S., and Siegfried, T. (2024).</span>
+        Water Tales from Turkistan: Challenges and Opportunities for the Badam-Sayram Water System under a Changing Climate. <em>Central Asian Journal of Water Research</em> 10, 2.
+        <br><a href="https://doi.org/10.29258/CAJWR/2024-R1.v10-2/1-25.eng" target="_blank">doi:10.29258/CAJWR/2024-R1.v10-2/1-25.eng ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-authors">Marti, B.S., Yakovlev, A., Karger, D.N., Ragettli, S., Zhumabaev, A., et al. (2023).</span>
+        CA-discharge: Geo-Located Discharge Time Series for Mountainous Rivers in Central Asia. <em>Scientific Data</em> 10, 579.
+        <br><a href="https://doi.org/10.1038/s41597-023-02474-8" target="_blank">doi:10.1038/s41597-023-02474-8 ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-authors">Marti, B.S., Zhumabaev, A., and Siegfried, T. (2023).</span>
+        A comprehensive open-source course for teaching applied hydrological modelling in Central Asia. <em>Hydrology and Earth System Sciences</em> 27, 319–330.
+        <br><a href="https://doi.org/10.5194/hess-27-319-2023" target="_blank">doi:10.5194/hess-27-319-2023 ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-authors">Schwedhelm, H., Zhumabaev, A., Siegfried, T., et al. (2023).</span>
+        Wasserkraftplanung Badam — ein Fallbeispiel für nachhaltige Wasserkraft. <em>21. Wasserbau-Symposium TU München/TU Graz/ETH Zürich</em>, pp. 177–186.
+        <br><a href="https://doi.org/10.3030/101022905" target="_blank">doi:10.3030/101022905 ↗</a>
+      </div>
+      <div class="pub-item">
+        <span class="pub-authors">Kulenbekov, Z.E., Orunbaev, S.Z., Zhumabaev, A.Z. (2021).</span>
+        Hydrologic Model for Runoff Simulation of the Kyzyl-Suu River. In: <em>Water Resource Management in Central Asia and Afghanistan</em>. Springer.
+        <br><a href="https://doi.org/10.1007/978-3-030-68337-5_3" target="_blank">doi:10.1007/978-3-030-68337-5_3 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <hr class="divider" />
+  <section aria-label="Contact">
+    <p class="section-label">
+      <span class="t-en">Contact</span>
+      <span class="t-ru">Контакты</span>
+      <span class="t-ky">Байланыш</span>
+    </p>
+    <div class="contact-grid">
+      <a class="contact-item" href="mailto:zhumabaev.aidar1999@gmail.com">
+        <span class="contact-icon">✉</span>
+        <span>zhumabaev.aidar1999@gmail.com</span>
+      </a>
+      <a class="contact-item" href="tel:+996554221271">
+        <span class="contact-icon">📞</span>
+        <span>+996 554 221 271</span>
+      </a>
+      <!-- TODO: add LinkedIn, GitHub, ORCID when ready -->
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Aidar Zhumabaev · Bishkek, Kyrgyzstan</p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang || (lang === 'ky' && btn.textContent.trim() === 'КЫР'));
+    });
+  }
+</script>
+</body>
+</html>
